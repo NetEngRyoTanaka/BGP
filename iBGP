@@ -1,0 +1,5 @@
+# iBGP configuration
+
+router bgp 10000
+  neighbor 1.1.1.1 remote-as 1
+  neighbor 1.1.1.1 update-source loopback 0
