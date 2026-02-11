@@ -1,1 +1,9 @@
+# R1 in ANS 10000
+# R1 is connected to R2 in the same AS and R3 in a different AS
 
+
+# Establishing peering
+
+router bgp 10000
+ neighbor 2.2.2.2 remote-as 10000
+ 
