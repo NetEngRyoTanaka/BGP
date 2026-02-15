@@ -1,0 +1,38 @@
+# R1 is in AS 64494.
+# R2 is connected to R1 that is in a different AS. 
+# R2, R3, and R4 are in the public AS 64495 and they're in the private ASN 64512
+# R3 is connected to other private AS's
+
+# R1 loopbak 0: 1.1.1.1
+
+router bgp 64494
+ bgp log-neighbor-changes
+ neighbor 2.2.2.2 remote-as 64495
+ neighbor 2.2.2.2 update-source loopback 0
+
+# R2 loopback 0: 2.2.2.2
+
+router bgp 64512
+  bgp log-neighbor-changes
+  bgp confederation identifier 64495
+  neighbor 1.1.1.1 remote-as 64494
+  neighbor 1.1.1.1 update-source loopback 0
+  neighbor 3.3.3.3 remote-as 64512 
+  neighbor 3.3.3.3 update-source loopback 0
+
+# R3 loopback 0 : 3.3.3.3
+
+router bgp 64512
+  bgp log-neighbor-changes
+  bgp confederation identifier 64495
+  neighbor 2.2.2.2 remote-as 64512
+  neighbor 2.2.2.2 update-source loopback 0
+  neighbor 2.2.2.2 route-reflector-client
+  neighbor 4.4.4.4 remote-as 64512
+  neighbor 4.4.4.4 update-source loopback 0
+  neighbor 4.4.4.4  route-reflector-client
+  bgp confederation peers 64513
+  neighbor 5.5.5.5 remote-as 64513
+  neighbor 5.5.5.5 update-source loopback 0
+
+
