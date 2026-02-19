@@ -1,0 +1,8 @@
+# Configuring BGP Dynamic Neighbors
+
+# Setting up BGP Dynamyc Neighbors on R1
+
+router bgp 10
+ neighbor iBGP-Peers peer-group
+ neighbor 
+  
