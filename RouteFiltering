@@ -1,1 +1,13 @@
+# Creating a prefix list
 
+ip prefix-list TO_R1 permit 10.1.10.0/24 # permitting the 10.1.10.0/24 IP subnet
+
+# Creating a route map to use the above prefix list
+route-map TO_R1 10 permit
+match ip address prefix-list TO_R1
+
+# Applying the route-map in the BGP configuration
+
+router 1
+neighbor 10.1.10.1 remote-as 2
+neighbor 10.1.10.1 route-map TO_R1 in
